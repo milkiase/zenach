@@ -16,8 +16,10 @@ $sub-color: grey;
         font-size: 16px;
         font-weight: 100;
         color: $sub-color;
+        width: 100%;
         &:focus{
             outline: none;
+            background-color: lightgray;
             & ~.form-input-label{
                 @include shrinkLabel();
             }

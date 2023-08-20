@@ -1,0 +1,12 @@
+.sign-in-form-container{
+    display: flex;
+    flex-direction: column;
+}
+.buttons-container{
+    display: flex;
+    // flex-direction: row;
+    justify-content: space-between;
+    // align-items: start;
+    column-gap: 30px;
+    margin-top: 30px;
+}

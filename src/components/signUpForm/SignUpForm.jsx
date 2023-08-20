@@ -14,7 +14,7 @@ const SignUpForm = ()=>{
     const {displayName, email, password, confirmPassword} = formFields
     const handleFormChange = (event)=>{
         const {name, value} = event.target
-        setFormFields({...formFields, [`${name}`]: value})
+        setFormFields({...formFields, [name]: value})
     }
     const handleSubmit = async(event)=>{
         event.preventDefault();
@@ -24,10 +24,11 @@ const SignUpForm = ()=>{
         }
         try{
             const {user} = await createAuthUserWithEmailAndPassword(email, password)
-            const response = await createUserDocumentFromAuth({...user, displayName})
-            console.log(response)
+            await createUserDocumentFromAuth({...user, displayName})
+            alert('user has been created successfully!')
+            setFormFields(defualtFormFields)
         }catch(error){
-            if(error.code === 'auth/user-already-exits'){
+            if(error.code === 'auth/email-already-in-use'){
                 alert('could not create user, user already exists')
             }else{
                 console.error(error.message)
@@ -37,7 +38,7 @@ const SignUpForm = ()=>{
     }
     return (
         <div className='sign-up-container'>
-            <h3>Don't have an account?</h3>
+            <h3>Don't have an account ?</h3>
             <p>Sign up with your email and password</p>
             <form onSubmit={handleSubmit}> 
                 <FormInput label={'Dispaly Name'} type="text" required id='display-name' name='displayName' 
@@ -48,7 +49,7 @@ const SignUpForm = ()=>{
                     value={password} onChange={handleFormChange}/>
                 <FormInput label={'Confirm Password'} type="password" required id='confirm-password' name='confirmPassword' 
                     value={confirmPassword} onChange={handleFormChange}/>
-                <div>
+                <div className='sign-up-btn-container'>
                     <Button  type="submit">Sign Up</Button>
                 </div>
             </form>

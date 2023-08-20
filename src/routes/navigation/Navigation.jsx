@@ -16,7 +16,7 @@ const Navigation = ()=>{
                     {/* <Link to="ljkl" className="nav-link">
                         Random
                     </Link> */}
-                    <Link to="/sign-in" className="nav-link" >
+                    <Link to="/auth" className="nav-link" >
                         sign-in
                     </Link>
                 </div>
