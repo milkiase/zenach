@@ -7,6 +7,7 @@ import './SignInForm.styles.scss'
 import Button from '../button/Button';
 import FormInput from '../formInput/FormInput';
 
+
 import { useState } from 'react';
 // import { RedirectFunction } from 'react-router-dom';
 const DEFAULT_SIGN_IN_FIELDS ={
@@ -44,7 +45,6 @@ const SignInForm = ()=>{
     const logGoogleUserWithPopup = async()=>{
         try {
             const {user} = await signInWithGooglePopup()
-            console.log(user)
             createUserDocumentFromAuth(user)
         } catch (error) {
             console.log(error)
@@ -58,7 +58,7 @@ const SignInForm = ()=>{
                 <FormInput label={'Email'} value={email} onChange={handleFormChange} 
                     type='email' name='email' id='sign-in-email' required/>
                 <FormInput label={'Password'} value={password} onChange={handleFormChange} 
-                    type='password' name='password' id='sign-in-password' required/>
+                    type='password' name='password' id='sign-in-password' required autoComplete="true"/>
                 <div className='buttons-container'>
                     <Button type='submit'> Sign in</Button>
                     <Button type="button" buttonType='google' 

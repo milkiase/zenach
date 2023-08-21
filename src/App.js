@@ -4,7 +4,6 @@ import Navigation from './routes/navigation/Navigation';
 import Authentication from './routes/authentication/Authentication'
 
 function App() {
-
   return (
       <Routes >
         <Route path={'/'} element={<Navigation/>} >
