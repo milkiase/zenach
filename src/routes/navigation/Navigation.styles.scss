@@ -1,8 +1,9 @@
 .navigation{
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px 0px 20px;
+    padding: 10px 0 0px 20px;
     text-transform: uppercase;
+    position: relative;
     .nav-links-container{
         display: flex;
         flex-wrap: wrap;

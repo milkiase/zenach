@@ -1,0 +1,15 @@
+.cart-icon-container{
+    position: relative;
+    cursor: pointer;
+    .shopping-bag{
+        width: 35px;
+        height: 35px;
+    }
+    span{
+        position: absolute;
+        right: 15px;
+        top: 19px;
+        font-size: x-small;
+        font-weight: bolder;
+    }
+}
