@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 0 0px 20px;
-    text-transform: uppercase;
     position: relative;
     .nav-links-container{
+        text-transform: uppercase;
         display: flex;
         flex-wrap: wrap;
         column-gap: 5px;
