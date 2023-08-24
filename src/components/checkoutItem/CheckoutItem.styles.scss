@@ -1,0 +1,25 @@
+.checkout-item-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    img{
+        width: 120px;
+    }
+    .remove{
+        cursor: pointer;
+        &:hover{
+            font-weight: bolder;
+        }
+    }
+    button{
+        border: none;
+        cursor: pointer;
+        background-color: inherit;
+        font-size: large;
+        color: grey;
+        &:hover{
+            color: black;
+        }
+    }
+}
