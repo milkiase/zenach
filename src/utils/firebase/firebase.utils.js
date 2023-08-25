@@ -4,7 +4,9 @@ import {
   signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut,
   onAuthStateChanged
 } from 'firebase/auth'
-import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore'
+import {getFirestore, doc, getDoc, setDoc, collection, writeBatch,
+  query, getDocs
+} from 'firebase/firestore'
 
 
 const firebaseConfig = {
@@ -70,3 +72,26 @@ export const signInUserWithEmailAndPassword = async (email, password)=>{
 export const signOutUser = async ()=> await signOut(auth)
 
 export const onAuthStateChangedListner = (callback)=> onAuthStateChanged(auth, callback)
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd)=>{
+    const collectionRef = collection(db, collectionKey)
+    const batch = writeBatch(db)
+    objectsToAdd.forEach((objectToAdd)=>{
+      const docRef = doc(collectionRef, objectToAdd.title.toLowerCase())
+      batch.set(docRef, objectToAdd)
+    })
+
+    await batch.commit()
+    console.log('added collection and documents')
+}
+
+export const getCategoriesDocuments = async ()=>{
+  const collectionRef = collection(db, 'categories')
+  const collectionQuery = query(collectionRef)
+  const querySnapshot = await getDocs(collectionQuery)
+
+  return querySnapshot.docs.reduce((accumulator, documentSnapShot) => {
+    const {items, title} = documentSnapShot.data()
+    return {...accumulator, [title.toLowerCase()]: items}
+  }, {})
+}
