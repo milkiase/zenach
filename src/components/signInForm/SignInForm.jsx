@@ -3,8 +3,8 @@ import {
     createUserDocumentFromAuth,
     signInUserWithEmailAndPassword
 } from '../../utils/firebase/firebase.utils'
-import './SignInForm.styles.scss'
-import Button from '../button/Button';
+import {SignInFormComponent, Buttons} from './SignInForm.styles'
+import Button, {BUTTON_TYPE_CLASSES} from '../button/Button';
 import FormInput from '../formInput/FormInput';
 
 
@@ -26,7 +26,6 @@ const SignInForm = ()=>{
         try{
             await signInUserWithEmailAndPassword(email, password)
             alert('Successfully signed in.')
-            // console.log(response.user)
             setSignInFormFields(DEFAULT_SIGN_IN_FIELDS)
         }catch(error){
             switch (error.code) {
@@ -47,11 +46,11 @@ const SignInForm = ()=>{
             const {user} = await signInWithGooglePopup()
             createUserDocumentFromAuth(user)
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
     return (
-        <div className='sign-in-form-container'>
+        <SignInFormComponent>
             <h3>Already have an account ?</h3>
             <p>Sign in with your email and password</p>
             <form onSubmit={handleFormSubmit}>
@@ -59,15 +58,31 @@ const SignInForm = ()=>{
                     type='email' name='email' id='sign-in-email' required/>
                 <FormInput label={'Password'} value={password} onChange={handleFormChange} 
                     type='password' name='password' id='sign-in-password' required autoComplete="true"/>
-                <div className='buttons-container'>
+                <Buttons>
                     <Button type='submit'> Sign in</Button>
-                    <Button type="button" buttonType='google' 
+                    <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} 
                         onClick={logGoogleUserWithPopup}>Sign in With Google 
                     </Button>
-                </div>
+                </Buttons>
             </form>
+        </SignInFormComponent>
+        // <div className='sign-in-form-container'>
+        //     <h3>Already have an account ?</h3>
+        //     <p>Sign in with your email and password</p>
+        //     <form onSubmit={handleFormSubmit}>
+        //         <FormInput label={'Email'} value={email} onChange={handleFormChange} 
+        //             type='email' name='email' id='sign-in-email' required/>
+        //         <FormInput label={'Password'} value={password} onChange={handleFormChange} 
+        //             type='password' name='password' id='sign-in-password' required autoComplete="true"/>
+        //         <div className='buttons-container'>
+        //             <Button type='submit'> Sign in</Button>
+        //             <Button type="button" buttonType='google' 
+        //                 onClick={logGoogleUserWithPopup}>Sign in With Google 
+        //             </Button>
+        //         </div>
+        //     </form>
             
-        </div>
+        // </div>
     );
 }
 

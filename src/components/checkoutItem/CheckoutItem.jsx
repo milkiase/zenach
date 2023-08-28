@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { CartContext } from '../../context/cart.context';
-import './CheckoutItem.styles.scss'
+import {CheckoutItemComponent, CheckoutBtn} from './CheckoutItem.styles'
 
 const CheckoutItem = ({cartItem, className})=>{
     const {id, imageURL, name, quantity, price} = cartItem
@@ -15,17 +15,32 @@ const CheckoutItem = ({cartItem, className})=>{
         removeItemFromCart(id)
     }
     return (
-        <div className={`checkout-item-container ${className}`}>
+        <CheckoutItemComponent className={className}>
             <img src={imageURL} alt={name} />
-            <span className='description'>{name}</span>
-            <span className='quantity'>
-                <button className='dec' onClick={decrementQuantity}> &#10094; </button>
+            <span>{name}</span>
+            <span>
+                <CheckoutBtn onClick={decrementQuantity}>
+                    &#10094;
+                </CheckoutBtn>
                 {quantity}
-                <button className='inc' onClick={incrementQuantity}> &#10095; </button>
+                <CheckoutBtn onClick={incrementQuantity}>
+                    &#10095;
+                </CheckoutBtn>
             </span>
-            <span className='price'>{price}</span>
-            <button className='remove' onClick={removeCheckout}> &#10005; </button>
-        </div>
+            <span>{price}</span>
+            <CheckoutBtn onClick={removeCheckout}>&#10005;</CheckoutBtn>
+        </CheckoutItemComponent>
+        // <div className={`checkout-item-container ${className}`}>
+        //     <img src={imageURL} alt={name} />
+        //     <span className='description'>{name}</span>
+        //     <span className='quantity'>
+        //         <button className='dec' onClick={decrementQuantity}> &#10094; </button>
+        //         {quantity}
+        //         <button className='inc' onClick={incrementQuantity}> &#10095; </button>
+        //     </span>
+        //     <span className='price'>{price}</span>
+        //     <button className='remove' onClick={removeCheckout}> &#10005; </button>
+        // </div>
     );
 }
 

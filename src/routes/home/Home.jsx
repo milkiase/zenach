@@ -1,5 +1,5 @@
-import CategoriesList from '../../components/categoryItem/CategoriesList/CategoriesList';
-const categories = [
+import Directories from '../../components/directories/Directories';
+const directories = [
     {
         id: 1,
         title: 'Hats', 
@@ -17,12 +17,12 @@ const categories = [
     },
     {
         id: 4,
-        title: 'Women', 
+        title: 'Womens', 
         imgURL: 'https://i.ibb.co/GCCdy8t/womens.png'
     },
     {
         id: 5,
-        title: 'Men', 
+        title: 'Mens', 
         imgURL: 'https://i.ibb.co/R70vBrQ/men.png'
     }
 ]
@@ -30,7 +30,7 @@ const categories = [
 function Home() {
 
   return (
-      <CategoriesList categories={categories} />
+      <Directories directories={directories} />
   );
 }
 

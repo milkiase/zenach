@@ -1,6 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import {ReactComponent as Cloth} from '../../assets/clothes-logo.svg'
-import './Navigation.styles.scss'
+import {NavigationComponent, NavLinks, NavLink} from './Navigation.styles'
+
 
 import CartDropdown from '../../components/cartDropdown/CartDropdown'
 import { useContext } from 'react';
@@ -20,7 +21,25 @@ const Navigation = ()=>{
     }
     return (
         <>
-            <div className="navigation">
+            <NavigationComponent>
+                <NavLink to='/'>
+                    <Cloth className="logo" width='50px'/>
+                </NavLink>
+                <NavLinks>
+                    <NavLink to={'/shop'}>
+                        Shop
+                    </NavLink>
+                    {
+                        currentUser ? (<NavLink as='span' onClick={handleSignOut}>Sign-out</NavLink>) :
+                            <NavLink to="/auth">
+                                sign-in
+                            </NavLink>
+                    }
+                    <CartIcon />
+                </NavLinks>
+                {isCartOpen && <CartDropdown></CartDropdown>}
+            </NavigationComponent>
+            {/* <div className="navigation">
                 <Link to='/' className="logo-container">
                     <Cloth className="logo" width='50px'/>
                 </Link>
@@ -38,7 +57,7 @@ const Navigation = ()=>{
                     <CartIcon />
                 </div>
                 {isCartOpen && <CartDropdown></CartDropdown>}
-            </div>
+            </div> */}
             <Outlet />
         </>
     );
