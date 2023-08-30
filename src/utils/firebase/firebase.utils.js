@@ -5,7 +5,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 import {getFirestore, doc, getDoc, setDoc, collection, writeBatch,
-  query, getDocs
+  query, getDocs, DocumentSnapshot
 } from 'firebase/firestore'
 
 
@@ -88,8 +88,5 @@ export const getCategoriesDocuments = async ()=>{
   const collectionQuery = query(collectionRef)
   const querySnapshot = await getDocs(collectionQuery)
 
-  return querySnapshot.docs.reduce((accumulator, documentSnapShot) => {
-    const {items, title} = documentSnapShot.data()
-    return {...accumulator, [title.toLowerCase()]: items}
-  }, {})
+  return querySnapshot.docs.map((documentSnapshot)=>documentSnapshot.data())
 }

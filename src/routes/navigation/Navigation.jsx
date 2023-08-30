@@ -1,16 +1,18 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import {ReactComponent as Cloth} from '../../assets/clothes-logo.svg'
 import {NavigationComponent, NavLinks, NavLink} from './Navigation.styles'
 
 
-import CartDropdown from '../../components/cartDropdown/CartDropdown'
+import CartDropdown from '../../components/cartDropdown/CartDropdown';
 import { useContext } from 'react';
-import { UserContext } from "../../context/user.context";
+// import { UserContext } from "../../context/user.context";\
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selectors";
 import { CartContext } from "../../context/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/cartIcon/CartIcon";
 const Navigation = ()=>{
-    const {currentUser} = useContext(UserContext)
+    const currentUser = useSelector(selectCurrentUser)
     const {isCartOpen} = useContext(CartContext)
     const handleSignOut = async ()=>{
         try{
