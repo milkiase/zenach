@@ -1,18 +1,20 @@
-import { useContext } from 'react';
-import { CartContext } from '../../context/cart.context';
-import {CheckoutItemComponent, CheckoutBtn} from './CheckoutItem.styles'
+import { useDispatch, useSelector } from 'react-redux';
+import { addQuantitytoCartItemAction, removeItemFromCartAction } from '../../store/cart/cart.actions';
+import { selectCartItems } from '../../store/cart/cart.selectors';
+import {CheckoutItemComponent, CheckoutBtn} from './CheckoutItem.styles';
 
 const CheckoutItem = ({cartItem, className})=>{
+    const dispatch = useDispatch()
     const {id, imageURL, name, quantity, price} = cartItem
-    const {removeItemFromCart, addQuantitytoCartItem} = useContext(CartContext)
+    const cartItems = useSelector(selectCartItems)
     const incrementQuantity = ()=>{
-        addQuantitytoCartItem(id, 1)
+        dispatch(addQuantitytoCartItemAction(cartItems, id, 1))
     }
     const decrementQuantity = ()=>{
-        addQuantitytoCartItem(id, -1)
+        dispatch(addQuantitytoCartItemAction(cartItems, id, -1))
     }
     const removeCheckout = ()=>{
-        removeItemFromCart(id)
+        dispatch(removeItemFromCartAction(cartItems, id))
     }
     return (
         <CheckoutItemComponent className={className}>
@@ -30,17 +32,6 @@ const CheckoutItem = ({cartItem, className})=>{
             <span>{price}</span>
             <CheckoutBtn onClick={removeCheckout}>&#10005;</CheckoutBtn>
         </CheckoutItemComponent>
-        // <div className={`checkout-item-container ${className}`}>
-        //     <img src={imageURL} alt={name} />
-        //     <span className='description'>{name}</span>
-        //     <span className='quantity'>
-        //         <button className='dec' onClick={decrementQuantity}> &#10094; </button>
-        //         {quantity}
-        //         <button className='inc' onClick={incrementQuantity}> &#10095; </button>
-        //     </span>
-        //     <span className='price'>{price}</span>
-        //     <button className='remove' onClick={removeCheckout}> &#10005; </button>
-        // </div>
     );
 }
 

@@ -4,16 +4,14 @@ import {NavigationComponent, NavLinks, NavLink} from './Navigation.styles'
 
 
 import CartDropdown from '../../components/cartDropdown/CartDropdown';
-import { useContext } from 'react';
-// import { UserContext } from "../../context/user.context";\
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selectors";
-import { CartContext } from "../../context/cart.context";
+import { selectIsCartOpen } from "../../store/cart/cart.selectors";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/cartIcon/CartIcon";
 const Navigation = ()=>{
     const currentUser = useSelector(selectCurrentUser)
-    const {isCartOpen} = useContext(CartContext)
+    const isCartOpen = useSelector(selectIsCartOpen)
     const handleSignOut = async ()=>{
         try{
             await signOutUser()
@@ -41,25 +39,6 @@ const Navigation = ()=>{
                 </NavLinks>
                 {isCartOpen && <CartDropdown></CartDropdown>}
             </NavigationComponent>
-            {/* <div className="navigation">
-                <Link to='/' className="logo-container">
-                    <Cloth className="logo" width='50px'/>
-                </Link>
-
-                <div className="nav-links-container">
-                    <Link to={'/shop'} className="nav-link">
-                        Shop
-                    </Link>
-                    {
-                        currentUser ? (<span className="nav-link" onClick={handleSignOut}>Sign-out</span>) :
-                            <Link to="/auth" className="nav-link" >
-                                sign-in
-                            </Link>
-                    }
-                    <CartIcon />
-                </div>
-                {isCartOpen && <CartDropdown></CartDropdown>}
-            </div> */}
             <Outlet />
         </>
     );

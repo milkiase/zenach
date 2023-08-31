@@ -19,9 +19,7 @@ const Button = ({children, buttonType, ...otherProps})=>{
         <CustomButton {...otherProps}>
             {children}
         </CustomButton>
-        // <button className={`${BUTTON_TYPE_CLASSES[buttonType]} button-container`} {...otherProps}>
-        //     {children}
-        // </button>
+        
     );
 }
 

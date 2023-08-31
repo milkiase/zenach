@@ -48,9 +48,7 @@ const SignUpForm = ()=>{
                     value={password} onChange={handleFormChange} autoComplete="true"/>
                 <FormInput label={'Confirm Password'} type="password" required id='confirm-password' name='confirmPassword' 
                     value={confirmPassword} onChange={handleFormChange} autoComplete="true"/>
-                {/* <div className='sign-up-btn-container'> */}
                     <SignUpButton  type="submit">Sign Up</SignUpButton>
-                {/* </div> */}
             </form>
         </SignUpComponent>
     );
