@@ -84,9 +84,14 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd)=>{
 }
 
 export const getCategoriesDocuments = async ()=>{
-  const collectionRef = collection(db, 'categories')
-  const collectionQuery = query(collectionRef)
-  const querySnapshot = await getDocs(collectionQuery)
-
-  return querySnapshot.docs.map((documentSnapshot)=>documentSnapshot.data())
+  try {
+    const collectionRef = collection(db, 'categories')
+    const collectionQuery = query(collectionRef)
+    const querySnapshot = await getDocs(collectionQuery)
+  
+    return querySnapshot.docs.map((documentSnapshot)=>documentSnapshot.data())
+  } catch (error) {
+    alert('error in getCategoriesDocuments')
+    throw new Error(error)
+  }
 }

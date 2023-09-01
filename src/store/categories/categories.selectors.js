@@ -14,3 +14,8 @@ export const selectCategoriesMap = createSelector(
         return {...accumulator, [title.toLowerCase()]: items}
     }, {}))
 )
+
+export const selectCategoriesIsLoading = createSelector(
+    [selectCategoriesReducer],
+    (categoriesReducerState) => categoriesReducerState.isLoading
+)
