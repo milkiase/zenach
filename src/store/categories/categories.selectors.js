@@ -10,7 +10,6 @@ const selectCategories = createSelector(
 export const selectCategoriesMap = createSelector(
     [selectCategories],
     (categories)=>(categories.reduce((accumulator, category) => {
-        console.log('selector fired')
         const {items, title} = category
         return {...accumulator, [title.toLowerCase()]: items}
     }, {}))
