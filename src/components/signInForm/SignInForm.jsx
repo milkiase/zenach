@@ -1,8 +1,5 @@
-import {
-    signInWithGooglePopup,
-    createUserDocumentFromAuth,
-    signInUserWithEmailAndPassword
-} from '../../utils/firebase/firebase.utils'
+import {useDispatch} from 'react-redux';
+import { signInWithGoogleAction, signInWithEmailInitAction } from '../../store/user/user.actions';
 import {SignInFormComponent, Buttons} from './SignInForm.styles'
 import Button, {BUTTON_TYPE_CLASSES} from '../button/Button';
 import FormInput from '../formInput/FormInput';
@@ -15,17 +12,17 @@ const DEFAULT_SIGN_IN_FIELDS ={
     password: ''
 }
 const SignInForm = ()=>{
+    const dispatch = useDispatch()
     const [signInFormFields, setSignInFormFields] = useState(DEFAULT_SIGN_IN_FIELDS)
     const {email, password} = signInFormFields
     const handleFormChange = (event)=>{
         const {name, value} = event.target
         setSignInFormFields({...signInFormFields, [name]: value})
     }
-    const handleFormSubmit = async (event)=>{
+    const handleFormSubmit = (event)=>{
         event.preventDefault();
         try{
-            await signInUserWithEmailAndPassword(email, password)
-            alert('Successfully signed in.')
+            dispatch(signInWithEmailInitAction(email, password))
             setSignInFormFields(DEFAULT_SIGN_IN_FIELDS)
         }catch(error){
             switch (error.code) {
@@ -41,13 +38,8 @@ const SignInForm = ()=>{
             }
         }
     }
-    const logGoogleUserWithPopup = async()=>{
-        try {
-            const {user} = await signInWithGooglePopup()
-            createUserDocumentFromAuth(user)
-        } catch (error) {
-            // console.log(error)
-        }
+    const logGoogleUserWithPopup = ()=>{
+        dispatch(signInWithGoogleAction())
     }
     return (
         <SignInFormComponent>
@@ -66,23 +58,7 @@ const SignInForm = ()=>{
                 </Buttons>
             </form>
         </SignInFormComponent>
-        // <div className='sign-in-form-container'>
-        //     <h3>Already have an account ?</h3>
-        //     <p>Sign in with your email and password</p>
-        //     <form onSubmit={handleFormSubmit}>
-        //         <FormInput label={'Email'} value={email} onChange={handleFormChange} 
-        //             type='email' name='email' id='sign-in-email' required/>
-        //         <FormInput label={'Password'} value={password} onChange={handleFormChange} 
-        //             type='password' name='password' id='sign-in-password' required autoComplete="true"/>
-        //         <div className='buttons-container'>
-        //             <Button type='submit'> Sign in</Button>
-        //             <Button type="button" buttonType='google' 
-        //                 onClick={logGoogleUserWithPopup}>Sign in With Google 
-        //             </Button>
-        //         </div>
-        //     </form>
-            
-        // </div>
+        
     );
 }
 

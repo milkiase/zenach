@@ -30,10 +30,10 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider)
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (authUser)=>{
+export const createUserDocumentFromAuth = async (authUser, additionalDetails = {})=>{
   const userDocRef = doc(db, 'users', authUser.uid)
   try{
-    const userSnapshot = await getDoc(userDocRef)
+    let userSnapshot = await getDoc(userDocRef)
     if(!userSnapshot.exists()){
       try {
         const {displayName, email} = authUser
@@ -41,15 +41,16 @@ export const createUserDocumentFromAuth = async (authUser)=>{
         const newUser = {
           displayName,
           email,
-          createdAt
+          createdAt,
+          ...additionalDetails
         }
         await setDoc(userDocRef, newUser)
-        return newUser
+        userSnapshot = await getDoc(userDocRef)
       } catch (error) {
         console.log('error creating a user')
       }
     }
-    return userDocRef
+    return userSnapshot
   }catch(error){
     console.log('snapshot error', error.message)
   }
@@ -84,14 +85,18 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd)=>{
 }
 
 export const getCategoriesDocuments = async ()=>{
-  try {
     const collectionRef = collection(db, 'categories')
     const collectionQuery = query(collectionRef)
     const querySnapshot = await getDocs(collectionQuery)
   
     return querySnapshot.docs.map((documentSnapshot)=>documentSnapshot.data())
-  } catch (error) {
-    alert('error in getCategoriesDocuments')
-    throw new Error(error)
-  }
+}
+
+export const getCurrentUser = ()=>{
+  return new Promise((resolve, reject)=>{
+    const unsubscribe = onAuthStateChanged(auth, (userAuth)=>{
+      unsubscribe();
+      resolve(userAuth);
+    }, reject)
+  })
 }

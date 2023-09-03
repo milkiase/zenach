@@ -4,20 +4,17 @@ import {NavigationComponent, NavLinks, NavLink} from './Navigation.styles'
 
 
 import CartDropdown from '../../components/cartDropdown/CartDropdown';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selectors";
 import { selectIsCartOpen } from "../../store/cart/cart.selectors";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { signOutInitAction } from '../../store/user/user.actions';
 import CartIcon from "../../components/cartIcon/CartIcon";
 const Navigation = ()=>{
+    const dispatch = useDispatch()
     const currentUser = useSelector(selectCurrentUser)
     const isCartOpen = useSelector(selectIsCartOpen)
-    const handleSignOut = async ()=>{
-        try{
-            await signOutUser()
-        }catch(error){
-            console.error(error)
-        }
+    const handleSignOut = ()=>{
+        dispatch(signOutInitAction())
     }
     return (
         <>
