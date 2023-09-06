@@ -35,3 +35,5 @@ export const addQuantitytoCartItemAction = (cartItems, id, quantitytoAdd)=>{
     const newCartItems = cartItems.map((product)=> product.id === id? {...product, quantity: (product.quantity + quantitytoAdd)}: product)
     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems)
 }
+
+export const clearCartItemsAction = ()=> createAction(CART_ACTION_TYPES.CLEAR_CART_ITEMS)
