@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import {DirectoryBody, DirectoryItemComponent} from './Directory.styles.jsx';
+
 const Directory = ({directory: {title, imgURL}})=>{
     const navigator = useNavigate()
     const shopNow = (goTo)=>{

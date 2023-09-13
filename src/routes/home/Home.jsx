@@ -1,4 +1,5 @@
 import Directories from '../../components/directories/Directories';
+
 const directories = [
     {
         id: 1,
@@ -29,9 +30,9 @@ const directories = [
 
 function Home() {
 
-  return (
-      <Directories directories={directories} />
-  );
+    return (
+        <Directories directories={directories} />
+    );
 }
 
 export default Home;

@@ -1,6 +1,8 @@
-import {DirectoriesComponent} from './Directories.styles.jsx'
+import {DirectoriesComponent} from './Directories.styles'
 
-import Directory from '../directory/Directory.jsx';
+import Directory from '../directory/Directory';
+
+
 const Directories = ({directories})=>{
     return (
         <DirectoriesComponent>
