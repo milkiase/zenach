@@ -1,5 +1,6 @@
-import CATEGORIES_ACTION_TYPES, {TCategory} from "./categories.types";
-import { TCategoriesActions } from "./categories.actions";
+import { AnyAction } from "redux";
+import {TCategory} from "./categories.types";
+import { fetchCategoriesInitAction, fetchCategoriesSuccessAction, fetchCategoriesFailedAction } from "./categories.actions";
 
 export type TCategoriesState = {
     readonly categories: TCategory[], 
@@ -11,17 +12,12 @@ const INITIAL_CATEGORIES_STATE: TCategoriesState = {
     error: null
 }
 
-const categoriesReducer = (state= INITIAL_CATEGORIES_STATE, action={} as TCategoriesActions)=>{
-    switch (action.type) {
-        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_INIT:
-            return {...state, isLoading: true, error: null};
-        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS:
-            return {...state, categories: action.payload, isLoading: false, error: null}
-        case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED:
-            return {...state, error: action.payload, isLoading: false}
-        default:
-            return state;
-    }
+const categoriesReducer = (state= INITIAL_CATEGORIES_STATE, action={} as AnyAction): TCategoriesState=>{
+
+    if(fetchCategoriesInitAction.match(action)) return {...state, isLoading: true, error: null};
+    if(fetchCategoriesSuccessAction.match(action)) return {...state, categories: action.payload, isLoading: false, error: null};
+    if(fetchCategoriesFailedAction.match(action)) return {...state, error: action.payload, isLoading: false};
+    return state;
 }
 
 export default categoriesReducer;
