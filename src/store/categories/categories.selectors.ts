@@ -1,9 +1,10 @@
+import { TRootState } from '../store';
 import { createSelector } from "reselect";
 import { TCategoriesState } from "./categories.reducer";
 import { TCategoryMap } from "./categories.types";
 
 // I will chanage the type any once rootstate is typed
-const selectCategoriesReducer = (state: any):TCategoriesState => state.categories
+const selectCategoriesReducer = (state: TRootState):TCategoriesState => state.categories
 
 const selectCategories = createSelector(
     [selectCategoriesReducer],
