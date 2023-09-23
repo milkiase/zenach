@@ -5,12 +5,16 @@ import { selectCategoriesMap, selectCategoriesIsLoading } from '../../store/cate
 import {CategoryComponent, CategoryTitle} from './Category.styles'
 import ProductCard from '../../components/productCard/ProductCard';
 import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
+import {TCategoryItem } from '../../store/categories/categories.types';
 
+type TCategoryUseParams = {
+    category: string
+}
 const Category = ()=>{
-    const {category} = useParams()
+    const {category} = useParams<keyof TCategoryUseParams>() as TCategoryUseParams;
     const categoriesMap = useSelector(selectCategoriesMap)
     const isCategoriesLoading = useSelector(selectCategoriesIsLoading)
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState([] as TCategoryItem[])
     useEffect(()=>{
         setProducts(categoriesMap[category])
     }, [categoriesMap, category])

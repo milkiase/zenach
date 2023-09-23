@@ -12,14 +12,3 @@ export const CategoryTitle = styled.h2`
     text-align: center;
     font-size: 38px;
 `
-// .category-container{
-//     display: grid;
-//     grid-template-columns: repeat(4, 1fr);
-//     column-gap: 5px;
-//     row-gap: 45px;
-//     margin-top: 20px;
-// }
-// .category-title{
-//     text-align: center;
-//     font-size: 38px;
-// }
