@@ -13,13 +13,6 @@ const Directories = ({directories})=>{
             }
         </DirectoriesComponent>
         
-        // <div className="categories-container">
-        // {
-        //     categories.map((category)=>(
-        //     <Directory  category={category} key={category.id}/>
-        // ))
-        // }
-        // </div>
     );
 }
 

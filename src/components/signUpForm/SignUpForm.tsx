@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
+import {AuthError, AuthErrorCodes} from 'firebase/auth';
 import {useDispatch} from 'react-redux';
 import { signUpWithEmailInitAction } from '../../store/user/user.actions';
 import {SignUpComponent, SignUpButton} from './SignUpForm.styles'
@@ -13,11 +14,11 @@ const SignUpForm = ()=>{
     const dispatch = useDispatch()
     const [formFields, setFormFields] = useState(defualtFormFields)
     const {displayName, email, password, confirmPassword} = formFields
-    const handleFormChange = (event)=>{
+    const handleInputChange = (event:ChangeEvent<HTMLInputElement>)=>{
         const {name, value} = event.target
         setFormFields({...formFields, [name]: value})
     }
-    const handleSubmit = (event)=>{
+    const handleFormSubmit = (event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
         if(password !== confirmPassword){
             alert('passwords do not match')
@@ -27,10 +28,10 @@ const SignUpForm = ()=>{
             dispatch(signUpWithEmailInitAction(email, password, displayName))
             setFormFields(defualtFormFields)
         }catch(error){
-            if(error.code === 'auth/email-already-in-use'){
+            if((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS){
                 alert('could not create user, user already exists')
             }else{
-                console.error(error.message)
+                console.error((error as AuthError).message)
             }
         }
     }
@@ -38,15 +39,15 @@ const SignUpForm = ()=>{
         <SignUpComponent>
             <h3>Don't have an account ?</h3>
             <p>Sign up with your email and password</p>
-            <form onSubmit={handleSubmit}> 
+            <form onSubmit={handleFormSubmit}> 
                 <FormInput label={'Dispaly Name'} type="text" required id='display-name' name='displayName' 
-                    value={displayName} onChange={handleFormChange}/>
+                    value={displayName} onChange={handleInputChange}/>
                 <FormInput label={'Email'} type="email" required id='email' name='email' 
-                    value={email} onChange={handleFormChange}/>
+                    value={email} onChange={handleInputChange}/>
                 <FormInput label={'Password'} type="password" required id='password' name='password' 
-                    value={password} onChange={handleFormChange} autoComplete="true"/>
+                    value={password} onChange={handleInputChange} autoComplete="true"/>
                 <FormInput label={'Confirm Password'} type="password" required id='confirm-password' name='confirmPassword' 
-                    value={confirmPassword} onChange={handleFormChange} autoComplete="true"/>
+                    value={confirmPassword} onChange={handleInputChange} autoComplete="true"/>
                     <SignUpButton  type="submit">Sign Up</SignUpButton>
             </form>
         </SignUpComponent>

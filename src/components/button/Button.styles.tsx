@@ -151,6 +151,4 @@ export const DotSpinner = styled.div`
     animation-delay: calc(var(--uib-speed) * -0.125);
     }
 
-    
-
 `

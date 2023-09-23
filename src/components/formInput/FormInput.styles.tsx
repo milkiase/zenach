@@ -13,8 +13,10 @@ export const Group = styled.div`
     padding: 25px 5px 5px 5px;
     position: relative;
 `
-
-export const FormInputLabel = styled.label`
+type TFormInputLabelProps = {
+    shrink: boolean
+}
+export const FormInputLabel = styled.label<TFormInputLabelProps>`
     position: absolute;
     left: 9px;
     ${({shrink})=> (shrink && shrinkLabel) }

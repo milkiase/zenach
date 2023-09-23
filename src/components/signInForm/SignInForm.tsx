@@ -1,12 +1,12 @@
+import { useState, ChangeEvent, FormEvent } from 'react';
 import {useDispatch} from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import { signInWithGoogleAction, signInWithEmailInitAction } from '../../store/user/user.actions';
-import {SignInFormComponent, Buttons} from './SignInForm.styles'
 import Button, {BUTTON_TYPE_CLASSES} from '../button/Button';
+import { Buttons, SignInFormComponent } from './SignInForm.styles';
 import FormInput from '../formInput/FormInput';
 
 
-import { useState } from 'react';
-// import { RedirectFunction } from 'react-router-dom';
 const DEFAULT_SIGN_IN_FIELDS ={
     email: '',
     password: ''
@@ -15,21 +15,21 @@ const SignInForm = ()=>{
     const dispatch = useDispatch()
     const [signInFormFields, setSignInFormFields] = useState(DEFAULT_SIGN_IN_FIELDS)
     const {email, password} = signInFormFields
-    const handleFormChange = (event)=>{
+    const handleFormChange = (event: ChangeEvent<HTMLInputElement>)=>{
         const {name, value} = event.target
         setSignInFormFields({...signInFormFields, [name]: value})
     }
-    const handleFormSubmit = (event)=>{
+    const handleFormSubmit = (event: FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
         try{
             dispatch(signInWithEmailInitAction(email, password))
             setSignInFormFields(DEFAULT_SIGN_IN_FIELDS)
         }catch(error){
-            switch (error.code) {
-                case 'auth/wrong-password':
+            switch ((error as AuthError).code) {
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert('incorrect password for email.')
                     break;
-                case 'auth/user-not-found':
+                case AuthErrorCodes.USER_DELETED:
                     alert('no user associated with this email');
                     break
                 default:
