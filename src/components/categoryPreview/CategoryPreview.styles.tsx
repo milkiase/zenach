@@ -17,19 +17,3 @@ export const Preview = styled.div`
     row-gap: 45px;
     margin-top: 20px;
 `
-// .category-preview-container{
-    
-//     .title{
-//         display: flex;
-//         span{
-//             cursor: pointer;
-//         }
-//     }
-//     .preview{
-//         display: grid;
-//         grid-template-columns: repeat(4, 1fr);
-//         column-gap: 5px;
-//         row-gap: 45px;
-//         margin-top: 20px;
-//     }
-// }

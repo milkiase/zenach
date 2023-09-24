@@ -1,6 +1,11 @@
 import Directories from '../../components/directories/Directories';
 
-const directories = [
+export type TDirectory = {
+    id: number,
+    title: string,
+    imgURL: string
+}
+const directories: TDirectory[] = [
     {
         id: 1,
         title: 'Hats', 

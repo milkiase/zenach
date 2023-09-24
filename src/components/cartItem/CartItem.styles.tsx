@@ -19,20 +19,3 @@ export const ItemDetails = styled.div`
 export const ItemDetail = styled.span`
     font-size: 16px;
 `
-// .cart-item-container{
-//     display: flex;
-//     justify-content: start;
-//     column-gap: 10px;
-//     margin-bottom: 10px;
-//     img{
-//         width: 30%;
-//     }
-//     .item-details{
-//         display: flex;
-//         flex-direction: column;
-//         justify-content: center;
-//         .name{
-//             font-size: 16px;
-//         }
-//     }
-// }

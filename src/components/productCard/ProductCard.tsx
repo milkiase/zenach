@@ -1,15 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCartItems } from '../../store/cart/cart.selectors';
 import { addItemToCartAction } from '../../store/cart/cart.actions';
+import { TCategoryItem } from '../../store/categories/categories.types';
 
 import Button, {BUTTON_TYPE_CLASSES} from '../button/Button';
 import {ProductCardComponent, ProductFooter} from './ProductCard.styles'
 
-const ProductCard = ({product})=>{
+type TProductCartProps = {
+    product: TCategoryItem
+}
+const ProductCard = ({product}:TProductCartProps)=>{
     const dispatch = useDispatch()
     const cartItems = useSelector(selectCartItems)
     const {name, imageURL, price} = product
-    const addItemToCart = (cartItem)=>{
+    const addItemToCart = (cartItem:TCategoryItem)=>{
         dispatch(addItemToCartAction(cartItems, cartItem))
     }
 

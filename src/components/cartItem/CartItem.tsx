@@ -1,6 +1,10 @@
+import { TCartItem } from '../../store/cart/cart.types';
 import {CartItemComponent, ItemDetails, ItemDetail} from './CartItem.styles'
 
-const CartItem = ({cartItem})=>{
+type TCartItemProps = {
+    cartItem: TCartItem
+}
+const CartItem = ({cartItem}: TCartItemProps)=>{
     const {name, imageURL, price, quantity} = cartItem
     return (
         <CartItemComponent>
@@ -14,13 +18,6 @@ const CartItem = ({cartItem})=>{
                 </ItemDetail>
             </ItemDetails>
         </CartItemComponent>
-        // <div className='cart-item-container'>
-        //     <img src={imageURL} alt={name} />
-        //     <div className='item-details'>
-        //         <span className="item-name">{name}</span>
-        //         <span className="">{quantity} x ${price} </span>
-        //     </div>
-        // </div>
     );
 }
 

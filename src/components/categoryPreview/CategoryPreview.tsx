@@ -1,9 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import {CategoryPreviewComponent, Title, Preview} from './CategoryPreview.styles'
 import ProductCard from '../productCard/ProductCard';
-const CategoryPreview = ({products, title})=>{
+import { TCategoryItem } from '../../store/categories/categories.types';
+
+type TCategoryPreviewProps = {
+    products: TCategoryItem[],
+    title: string
+}
+const CategoryPreview = ({products, title}:TCategoryPreviewProps)=>{
     const navigatort  = useNavigate()
-    const goToFullCategory = (category)=>{
+    const goToFullCategory = (category:string)=>{
         navigatort(category)
     }
     return (
