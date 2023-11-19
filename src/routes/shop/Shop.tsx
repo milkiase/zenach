@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense} from 'react';
 import { Routes, Route} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCategoriesInitAction } from '../../store/categories/categories.actions';
-import CategoriesPreview from '../categoriesPreview/CategoriesPreview';
-import Category from '../category/Category';
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
+const CategoriesPreview = lazy(() => import('../categoriesPreview/CategoriesPreview'));
+const Category = lazy(() => import('../category/Category'));
 
 const Shop = ()=>{
     const dispatch = useDispatch()
@@ -11,10 +12,12 @@ const Shop = ()=>{
         dispatch(fetchCategoriesInitAction())
     }, [])
     return (
-        <Routes>
-            <Route index element={<CategoriesPreview />}/>
-            <Route path=":category" element={<Category />}/>
-        </Routes>
+        <Suspense fallback={<LoadingSpinner/>}>
+            <Routes>
+                <Route index element={<CategoriesPreview />}/>
+                <Route path=":category" element={<Category />}/>
+            </Routes>
+        </Suspense>
     );
 }
 

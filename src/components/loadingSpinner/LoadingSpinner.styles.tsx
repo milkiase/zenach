@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const SpinnerItem = styled.div`
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
     background-color: rgb(38, 175, 220);
     border-radius: 50%;
     animation: spinner-4t3wzl 2s infinite linear;
@@ -22,8 +22,8 @@ export const Spinner = styled.div`
     margin: auto;
     margin-top: 30vh;
     position: relative;
-    width: 80px;
-    height: 16px;
+    width: 70px;
+    height: 12px;
     ${SpinnerItem}:nth-child(1) {
         left: 0;
         animation-delay: 0.15s;

@@ -12,7 +12,7 @@ const CartIcon = ()=>{
     return(
         <CartIconComponent onClick={()=>dispatch(setIsCartOpenAction(!isCartOpen))}>
             <ShoppingIcon></ShoppingIcon>
-            <ItemCount>{cartCount}</ItemCount>
+            <ItemCount cartCount={cartCount}>{cartCount}</ItemCount>
         </CartIconComponent>
     );
 }

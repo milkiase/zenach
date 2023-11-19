@@ -1,10 +1,12 @@
+import { memo } from 'react';
 import { useSelector } from 'react-redux';
+
 import { selectCartItems, selectTotalPrice } from '../../store/cart/cart.selectors';
 
 import {CheckoutComponent, CheckoutItemComponent, TotalPrice} from './Checkout.styles'
 import CheckoutItem from '../../components/checkoutItem/CheckoutItem';
 import PaymentForm from '../../components/paymentForm/PaymentForm';
-const Checkout = ()=>{
+const Checkout = memo(()=>{
     const cartItems = useSelector(selectCartItems)
     const totalPrice = useSelector(selectTotalPrice)
     return (
@@ -25,6 +27,6 @@ const Checkout = ()=>{
             <PaymentForm></PaymentForm>
         </CheckoutComponent>
     );
-}
+})
 
 export default Checkout;
